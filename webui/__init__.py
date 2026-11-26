@@ -281,9 +281,9 @@ def layout(titel, aktiv, inhalt, banner=None, refresh=None, banner_aktion=None,
         aria = ' aria-current="page"' if p == aktiv else ""
         return f' class="{" ".join(k)}"{aria}' if k else ""
     unter = ("" if len(kinder) < 2 else
-             '<div class="subnav"><div class="inner">' + "".join(
+             '<nav class="subnav" aria-label="' + html.escape(t("nav.landmark.seiten", bereich=abschnitt)) + '"><div class="inner">' + "".join(
                  f'<a href="{p}"{_u_klasse(p)}>{html.escape(n)}</a>'
-                 for p, n in kinder) + "</div></div>")
+                 for p, n in kinder) + "</div></nav>")
     ver = os.environ.get("SUSLIK_VERSION", "")   # feste Image-Version (leer im rohen dev-Lauf)
     # Issue #24 (Tokn59, 18.08.): die VOLLE installierte Variante zeigen
     # ('0.1.0.X-gpu') — SUSLIK_VARIANT steckt seit den Varianten-Builds im
@@ -464,10 +464,11 @@ def layout(titel, aktiv, inhalt, banner=None, refresh=None, banner_aktion=None,
             # Beide Leisten in EINEN klebenden Block (Fund der Nachpruefung 25.07.): einzeln
             # klebend brauchte die zweite Ebene einen Festwert fuer die Hoehe der ersten, und der
             # wurde falsch, sobald die erste umbrach — s. .kopf in style.css.
-            f'<div class="kopf"><nav><div class="inner"><span class="marke">{mark}suslik'
+            f'<a class="skip" href="#inhalt">{html.escape(t("ui.skip"))}</a>'
+            f'<div class="kopf"><nav aria-label="{html.escape(t("nav.landmark.sektionen"))}"><div class="inner"><span class="marke">{mark}suslik'
             f'{f" <small>{html.escape(ver)}</small>" if ver else ""}{upd}</span>{lage_rot}{nav}{rechts}</div></nav>'
             f"{unter}</div>"
-            f"<main>{b}{hw}{inhalt}</main>"
+            f'<main id="inhalt" tabindex="-1">{b}{hw}{inhalt}</main>'
             f"<footer>{_fuss()}</footer>{rmjs}</html>")
 
 

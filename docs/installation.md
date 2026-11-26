@@ -31,7 +31,7 @@ for real performance.
   the box. suslik uses that unauthenticated port 5000; it has **no support for Frigate's
   authenticated port 8971** (JWT/login) yet. Reading from Frigate is all suslik needs to
   work. Only if you want to write reference faces *back* into Frigate (the optional
-  **Frigate sync** page) two more things must be true: write-back has to be enabled in
+  **Reference sync** page) two more things must be true: write-back has to be enabled in
   suslik (read-only is the default), and Frigate's own face recognition has to be turned
   on (`face_recognition.enabled: true`), otherwise Frigate refuses every upload with
   HTTP 400.

@@ -176,7 +176,7 @@ picture of the face without a name.
 appearance, without a lead-in, when Telegram is among the watcher's channels
 and `telegram_video` is on. It covers `video_s` seconds from there, with at
 most 3 frames per second. Its height comes from the Telegram video height on
-the Advanced page (`telegram_hoehe`, 720 by default, or 480); a smaller camera
+the Advanced settings page (`telegram_hoehe`, 720 by default, or 480); a smaller camera
 picture is not enlarged. It is sent when the appearance is over (no face for
 "Visit ends after") and the recording is done, whichever comes later. Its
 caption is the line from the table above.
@@ -220,7 +220,7 @@ drivers).
 
 **Enabled means running.** There is no computed capacity verdict: only two
 hard brakes can refuse a watcher, and both are plain numbers — a watcher cap
-(default **5**, raisable up to 20 with `live_max_slots` on the Advanced page, for
+(default **5**, raisable up to 20 with `live_max_slots` on the Advanced settings page, for
 machines with stronger hardware), and a **RAM floor** taken from the real
 container memory limit (one more stream must not push free RAM below the
 floor). If the
@@ -242,7 +242,7 @@ watchers are paused during the measurement so the numbers are honest.
    green "Live engine: running" with the number of active watchers, red
    "Live engine: not running", or "Not available on this build". Below
    it is the slot bar. There are as many slots as watchers may run at once
-   (`live_max_slots` on the Advanced page, 5 by default, at most 20), and
+   (`live_max_slots` on the Advanced settings page, 5 by default, at most 20), and
    always enough to show the highest slot number in use. Each slot button
    shows its number, the camera and the state of its watcher in the colour of
    that state; a camera that is set up here but not in Frigate right now is
@@ -327,7 +327,7 @@ the same thing.
 **Frames per second and minimum votes.** The section "Visit" shows these two
 values in one line ("Same for all cameras: …") but does not change them. They
 apply to every camera and to the analysis of recorded events alike. The link
-"Configuration" in that line opens the Advanced page, where you set them; the
+"Configuration" in that line opens the Advanced settings page, where you set them; the
 Advanced section of the watcher page does not have them. `fps_sample` is the
 sampling grid of step 2, `stapel_stimmen` the votes a name needs (step 4).
 
@@ -583,7 +583,7 @@ in the data folder and start at 0 when the engine restarts.
 ## Honest limits
 
 - **Built for a GPU.** On the CPU-only image watchers run in CPU mode with slower reactions (see "GPU requirement and the two brakes").
-- **At most 5 watchers by default** (`live_max_slots` on the Advanced page raises the cap, up to 20), and the RAM floor can refuse one more stream.
+- **At most 5 watchers by default** (`live_max_slots` on the Advanced settings page raises the cap, up to 20), and the RAM floor can refuse one more stream.
 - **Per camera only.** A watcher sees one stream; the cross-camera scenario
   view stays with the normal analysis.
 - **The preliminary name is not a verdict.** The short default texts no
@@ -627,7 +627,7 @@ in the data folder and start at 0 when the engine restarts.
   when frames pile up, some are dropped and the video gets shorter and plays
   faster, with a WARNING in the log. If the stream breaks off, the video ends
   early.
-- **The video encoder is not capped by `cpu_threads`** (Advanced page); it
+- **The video encoder is not capped by `cpu_threads`** (Advanced settings page); it
   only runs at the lowest priority.
 - **Small faces get smaller** in the 720-line picture; the frame around them
   shows where they are.

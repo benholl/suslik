@@ -7,23 +7,24 @@ analysis runs as Frigate produces person events.
 
 ## The web UI
 The top bar has **six sections**, each with its pages in a row beneath it: **Activity**
-(Today / Passes / Events / Presence), **Faces** (your reference library — Faces, Known,
-Unknown, Quality, Suggestions — plus Body images and Named persons of the body-recognition
-path, see [person-recognition.md](person-recognition.md), and the parked Vision page),
-**Learn** (face learning runs and anchors), **Live**
-(live watchers — see [live-watchers.md](live-watchers.md) — and their alerts),
-**Configuration** (Recognition, Cameras, Areas, Calibration, Notifications, Recognition chain,
-Recognition test, Advanced) and **System** (System, System stats, GPU, Frigate, Frigate sync).
+(Today / Walk-throughs / Camera events / Presence timeline), **People** (your reference library — Overview, Face library,
+Unidentified visitors, Quality review, Faces to add — plus Body images and Body names of the body-recognition
+path, see [person-recognition.md](person-recognition.md), and the parked Vision checks page),
+**Learn** (Run a session and Review clusters), **Live**
+(Watcher setup — see [live-watchers.md](live-watchers.md) — and Watcher findings),
+**Configuration** (Recognition setup, Cameras, Property areas, Camera calibration, Notification channels,
+When each path runs, Test one pass, Advanced settings) and **System** (Status & backups, Hardware & load,
+Graphics card, Frigate connection, Reference sync).
 Every page keeps its address; only its place in the bar moved. The top row is always sections,
 the second row the pages of the section you are in.
 
-**Presence** (route `/anwesenheit`) sits under **Activity** — the
-day, person by person, in quarter-hour cells. **Calibration** (per-camera bars) sits under
+**Presence timeline** (route `/anwesenheit`) sits under **Activity** — the
+day, person by person, in quarter-hour cells. **Camera calibration** (per-camera bars) sits under
 **Configuration** and is shown in Expert mode only; in Easy mode the page stays reachable at
 `/kalibrierung` and through each camera's **Calibrate** button on the Live page. Red =
 that person was confirmed present in that quarter hour (by the event analysis or a live
 watcher, shown once), light with a red border = seen there only via person recognition (body
-name, only with the switch **Presence page** on the Recognition page, `koerper_meldet_anwesenheit`,
+name, only with the switch **Presence page** on the Recognition setup page, `koerper_meldet_anwesenheit`,
 off by default; red wins as soon as a face or live watcher marks the same quarter hour), green =
 the system was running and confirmed nobody, an empty cell =
 the system was not running or did not look at that slot (no statement, not "absent"). The
@@ -83,13 +84,13 @@ version that introduced the page — earlier days stay empty.
   longer among the newest 200 of the day in the live day view, the click lands at the top
   of that page.
   The page ends with a line giving the number of passes that day and a link to the
-  **Passes** tab. On today's date, without any alert channel set up, a line under the
-  Recognized band points to Notifications.
-- **Passes** (route `/durchgaenge`, between Today and Events) — the numbers and the walks
+  **Walk-throughs** tab. On today's date, without any alert channel set up, a line under the
+  Recognized band points to Notification channels.
+- **Walk-throughs** (route `/durchgaenge`, between Today and Camera events) — the numbers and the walks
   of the day. Day navigation and area chips work as on Today; the chosen day and area stay
   when you switch between the two tabs. A row of four numbers comes first: **People
   recognized** (links to the Recognized band on Today), **Passes**, **Events analysed**
-  (links to Events) and **Detection rate** (the share of the analysed events with at least
+  (links to Camera events) and **Detection rate** (the share of the analysed events with at least
   one checked face, the count in its tooltip); every number explains in its tooltip what
   it counts. One sentence follows with the unknown people and the people probably
   recognized (each a link to its band on Today), the passes with nobody recognized, more in
@@ -103,39 +104,39 @@ version that introduced the page — earlier days stay empty.
   three). Inside, each camera line shows at most three names plus "+N", eight camera lines
   are visible and the rest folds behind "all N cameras". Passes whose whole clip contains
   no serious face show a quiet "no usable face in this pass" note instead of a warning
-  badge. Under the list, notes count the hidden motion-only passes (a link to Events), the
+  badge. Under the list, notes count the hidden motion-only passes (a link to Camera events), the
   detections filtered as non-faces and the likely false triggers per camera.
-  Live-watcher statistics live on the Live tab and in System stats.
+  Live-watcher statistics live on the Live tab and in Hardware & load.
   A pass still in progress is marked "in progress" on both tabs, which then reload every
   30 seconds, and finalizes once the walk ends.
-- **Events** — the flat event list with filters and paging, category badges, ground-truth
+- **Camera events** — the flat event list with filters and paging, category badges, ground-truth
   buttons, and video links. Useful for drilling into a single event.
 - The former **To label** work list is gone; its address `/offen` now leads to the **Unknown**
-  tab, where faces are named per identity (see **Faces** below). Single events are labeled
+  tab, where faces are named per identity (see **People** below). Single events are labeled
   wherever the label buttons appear, for example on the event detail page: besides the person
   buttons and *Stranger*/*?* there is a **No person** button for false triggers (a video with
   nobody in it); one click closes the case and it stops counting as unknown. Passes whose
   whole clip contains no serious face get a quiet "no usable face in this pass" note in the
-  list on the **Passes** tab instead of a warning badge and an unknown-visitor card.
+  list on the **Walk-throughs** tab instead of a warning badge and an unknown-visitor card.
 
-**Faces**
+**People**
 
-Body images, Named persons and the parked Vision page sit in this section too.
+Body images, Body names and the parked Vision checks page sit in this section too.
 
-- **Known** — your reference library (the "master"): the people suslik knows and their reference
+- **Face library** — your reference library (the "master"): the people suslik knows and their reference
   images. Also where you can upload photos to bootstrap a person.
-- **Unknown** — persistent unknown identities: recurring faces that aren't in your library yet,
+- **Unidentified visitors** — persistent unknown identities: recurring faces that aren't in your library yet,
   grouped over time so you can promote one to a known person.
-- **Suggestions** — enrollment suggestions. suslik proposes reference faces to add for known
+- **Faces to add** — enrollment suggestions. suslik proposes reference faces to add for known
   people after each walk; **"Apply all recommended"** accepts all suggested faces at once.
   Applying stays a manual click (a safeguard against poisoning the library with bad crops).
-- **Quality** — reference-library quality reports (finding no-face, mislabeled, or confusable
+- **Quality review** — reference-library quality reports (finding no-face, mislabeled, or confusable
   references so you can clean the master up). Every reference carries a quality value; weak
   pictures are flagged, and a progress bar shows the check while it runs.
 
-**Frigate sync**
+**Reference sync**
 
-- **Frigate sync** (route `/sync_auswahl`) — the one place where your reference library and
+- **Reference sync** (route `/sync_auswahl`) — the one place where your reference library and
   Frigate's own face library are compared, in both directions. The page opens with a balance
   line that adds up across all classes: how many reference images you have, how many are
   already in Frigate, how many are ready to transfer, how many Frigate rejected, how many you
@@ -166,17 +167,17 @@ Body images, Named persons and the parked Vision page sit in this section too.
   Importing *from* Frigate works without it.
 - **Read-only mode blocks the transfer**, and it is the default. The page says so and the
   transfer button stays disabled until you switch writing on with the **Frigate write-back**
-  control on the System page. Comparison, pre-check and import work either way.
+  control on the Status & backups page. Comparison, pre-check and import work either way.
 - **One sync at a time.** Starting a second run while one is going is refused with a clear
   message, and the automatic export skips a round instead of racing a running transfer.
 
 **Configuration**
 
-Recognition test and Calibration sit in this section too; Calibration is shown in Expert
+Test one pass and Camera calibration sit in this section too; Camera calibration is shown in Expert
 mode only.
 
 - **Cameras** — the cameras from Frigate, with the zone condition as a checkbox per camera.
-- **Notifications** — configure the alert channels (Pushover, Telegram, MQTT) and pick which
+- **Notification channels** — configure the alert channels (Pushover, Telegram, MQTT) and pick which
   judgment categories raise an alert. For Telegram you can choose the attachment: a short
   **video** clip (falls back to an image and says so) or **image only** (no transcoding —
   lighter on weak hardware). Each channel has a **Test** button; stored secrets are shown masked.
@@ -187,24 +188,24 @@ mode only.
   channels but pick them **per watcher** on the Live tab, and have their own switches for
   known and unknown people, picture and video
   ([live-watchers.md](live-watchers.md#pictures-and-video-on-pushover-and-telegram)).
-- **Recognition chain** — its own page: the order and conditions of the recognition
+- **When each path runs** — its own page: the order and conditions of the recognition
   paths (face → person → vision), each step with a plain-language condition. It used to
-  sit inside Advanced.
-- **Advanced** — the remaining configuration values and a clean restart.
+  sit inside Advanced settings.
+- **Advanced settings** — the remaining configuration values and a clean restart.
 
 **System**
 
-GPU, Frigate and Frigate sync sit in this section too.
+Graphics card, Frigate connection and Reference sync sit in this section too.
 
-- **System** — the status "traffic light", the **Sync with Frigate** card (the same balance
-  line as the Frigate sync page plus **Open Frigate sync**; the buttons themselves live on that
+- **Status & backups** — the status "traffic light", the **Sync with Frigate** card (the same balance
+  line as the Reference sync page plus **Open Frigate sync**; the buttons themselves live on that
   page now), a QC report, the
   **configuration backup/restore** card, the **full backup** card (one portable archive with
   everything you taught the installation — settings, face references, learning results, the
   whole person-recognition material and models — plus a restore that replaces those parts
   and moves the previous ones into `state/archiv/`, deleting nothing), the **Frigate write-back** control (read-only
   is the safe default), **Re-run setup wizard**, and a link to this documentation.
-- **System stats** — the load of the machine
+- **Hardware & load** — the load of the machine
   and the state of recognition, one sample per minute, kept for 48 hours. Anything this
   hardware cannot measure says so instead of showing a zero. The **RAM** card shows what the
   program really occupies (processes + graphics memory) as the big number; the **file cache**
@@ -225,7 +226,7 @@ the day-to-day path; to work through your event history in one guided go, see
 [Learning people](learning.md). The flow is person-centric:
 
 1. Let the person appear on camera normally. After each walk, suslik collects the best faces
-   (up to three per event), generates enrollment suggestions (**People → Suggestions**) for
+   (up to three per event), generates enrollment suggestions (**People → Faces to add**) for
    people it already knows, and clusters faces it doesn't recognize into the **Unknown** tab.
    For a known person, the check button next to an event picture on their page goes further:
    it looks at every frame of that event, measures face quality with a reference-free score
