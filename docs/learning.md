@@ -66,8 +66,8 @@ They are being built.
 
 ## Settings worth knowing
 
-These live under **Settings → Advanced** (the Settings menu holds Cameras,
-Notifications, Recognition chain and Advanced). The defaults are deliberate starting
+These live under **Configuration → Advanced** (the Configuration menu holds Recognition,
+Cameras, Areas, Calibration, Notifications, Recognition chain, Recognition test and Advanced). The defaults are deliberate starting
 values; if a run does not feel right, this is where you tune it, one value at a time.
 
 | Key | What it does |

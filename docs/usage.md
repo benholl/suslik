@@ -6,19 +6,21 @@ their camera streams and react while the person is still in the picture, and the
 analysis runs as Frigate produces person events.
 
 ## The web UI
-The UI has **eleven sections** (top bar): **Activity** (Today / Passes / Events / Unknown),
-**People** (your reference library), **Person** (the Body images and Named persons pages of the
-body-recognition path — see [person-recognition.md](person-recognition.md)), **Vision** (vision detect, parked in this
-version: the page says why), **Live**
-(live watchers — see [live-watchers.md](live-watchers.md)), **Areas** (camera groups),
-**Learn** (face learning runs and anchors), **Frigate sync** (the
-class-by-class comparison with Frigate's own face library), **Settings**,
-**Recognition test** and **System**.
+The top bar has **six sections**, each with its pages in a row beneath it: **Activity**
+(Today / Passes / Events / Presence), **Faces** (your reference library — Faces, Known,
+Unknown, Quality, Suggestions — plus Body images and Named persons of the body-recognition
+path, see [person-recognition.md](person-recognition.md), and the parked Vision page),
+**Learn** (face learning runs and anchors), **Live**
+(live watchers — see [live-watchers.md](live-watchers.md) — and their alerts),
+**Configuration** (Recognition, Cameras, Areas, Calibration, Notifications, Recognition chain,
+Recognition test, Advanced) and **System** (System, System stats, GPU, Frigate, Frigate sync).
+Every page keeps its address; only its place in the bar moved. The top row is always sections,
+the second row the pages of the section you are in.
 
-Two buttons sit in the top bar next to the sections: **Calibration** (per-camera bars; shown
-in Expert mode only, in Easy mode the page stays reachable at `/kalibrierung` and through each
-camera's **Calibrate** button on the Live page) and **Presence** (route `/anwesenheit`) — the
-day, person by person, in quarter-hour cells. Red =
+**Presence** (route `/anwesenheit`) sits under **Activity** — the
+day, person by person, in quarter-hour cells. **Calibration** (per-camera bars) sits under
+**Configuration** and is shown in Expert mode only; in Easy mode the page stays reachable at
+`/kalibrierung` and through each camera's **Calibrate** button on the Live page. Red =
 that person was confirmed present in that quarter hour (by the event analysis or a live
 watcher, shown once), light with a red border = seen there only via person recognition (body
 name, only with the switch **Presence page** on the Recognition page, `koerper_meldet_anwesenheit`,
@@ -109,14 +111,16 @@ version that introduced the page — earlier days stay empty.
 - **Events** — the flat event list with filters and paging, category badges, ground-truth
   buttons, and video links. Useful for drilling into a single event.
 - The former **To label** work list is gone; its address `/offen` now leads to the **Unknown**
-  tab, where faces are named per identity (see **People** below). Single events are labeled
+  tab, where faces are named per identity (see **Faces** below). Single events are labeled
   wherever the label buttons appear, for example on the event detail page: besides the person
   buttons and *Stranger*/*?* there is a **No person** button for false triggers (a video with
   nobody in it); one click closes the case and it stops counting as unknown. Passes whose
   whole clip contains no serious face get a quiet "no usable face in this pass" note in the
   list on the **Passes** tab instead of a warning badge and an unknown-visitor card.
 
-**People**
+**Faces**
+
+Body images, Named persons and the parked Vision page sit in this section too.
 
 - **Known** — your reference library (the "master"): the people suslik knows and their reference
   images. Also where you can upload photos to bootstrap a person.
@@ -166,7 +170,10 @@ version that introduced the page — earlier days stay empty.
 - **One sync at a time.** Starting a second run while one is going is refused with a clear
   message, and the automatic export skips a round instead of racing a running transfer.
 
-**Settings**
+**Configuration**
+
+Recognition test and Calibration sit in this section too; Calibration is shown in Expert
+mode only.
 
 - **Cameras** — the cameras from Frigate, with the zone condition as a checkbox per camera.
 - **Notifications** — configure the alert channels (Pushover, Telegram, MQTT) and pick which
@@ -187,6 +194,8 @@ version that introduced the page — earlier days stay empty.
 
 **System**
 
+GPU, Frigate and Frigate sync sit in this section too.
+
 - **System** — the status "traffic light", the **Sync with Frigate** card (the same balance
   line as the Frigate sync page plus **Open Frigate sync**; the buttons themselves live on that
   page now), a QC report, the
@@ -195,7 +204,7 @@ version that introduced the page — earlier days stay empty.
   whole person-recognition material and models — plus a restore that replaces those parts
   and moves the previous ones into `state/archiv/`, deleting nothing), the **Frigate write-back** control (read-only
   is the safe default), **Re-run setup wizard**, and a link to this documentation.
-- **System stats** (also the **System stats** button in the top bar) — the load of the machine
+- **System stats** — the load of the machine
   and the state of recognition, one sample per minute, kept for 48 hours. Anything this
   hardware cannot measure says so instead of showing a zero. The **RAM** card shows what the
   program really occupies (processes + graphics memory) as the big number; the **file cache**

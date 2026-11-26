@@ -5,6 +5,17 @@ never pushed to GHCR; they ship bundled with the next release (each release entr
 says which steps it bundles). This file keeps the last five releases; the full record lives in the
 [GitHub releases](https://github.com/BennoBaer-dev/suslik/releases) and the git history.
 
+## Unreleased
+
+- **Navigation:** the top bar now has six sections — **Activity**, **Faces**, **Learn**,
+  **Live**, **Configuration**, **System** — with the pages of each section in a row beneath
+  it. The four loose buttons in the header (**Read me first**, **Calibration**, **Presence**,
+  **GPU**) are pages now: Presence is under Activity, Calibration under Configuration (Expert
+  mode), GPU under System, and Read me first is the **?** button at the right end of the bar.
+  Single-page sections (Vision, Recognition test) moved into Faces and Configuration. No address
+  changed, so bookmarks and deep links still work; only the grouping and the look of the bar
+  changed.
+
 ## 0.1.1.115 (2026-11-26)
 
 Test release. Person recognition stays a preview.

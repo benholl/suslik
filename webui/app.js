@@ -2114,7 +2114,7 @@ function liveKameraWechsel(sel) {
   var w = document.getElementById('ui-modus');
   if (!w) return;
   function setzen(m) {
-    document.body.classList.toggle('easy', m === 'easy');
+    document.documentElement.classList.toggle('easy', m === 'easy');
     var bs = w.querySelectorAll('button');
     for (var i = 0; i < bs.length; i++) {
       bs[i].classList.toggle('an', bs[i].getAttribute('data-m') === m);
