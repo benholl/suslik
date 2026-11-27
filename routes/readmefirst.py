@@ -101,7 +101,7 @@ def render(als_overlay=False):
             f'{schliessen}</div>'
             f'<p class="rm-einl">{html.escape(t("readme.einleitung"))}</p>'
             f'<div class="rm-huelle">'
-            f'<nav class="rm-nav"><div class="rm-navtitel">'
+            f'<nav class="rm-nav" aria-label="{html.escape(t("readme.inhalt"))}"><div class="rm-navtitel">'
             f'{html.escape(t("readme.inhalt"))}</div>{nav}</nav>'
             f'<div class="rm-text">{absaetze}'
             + (f'<p class="rm-kontakt">{html.escape(t("readme.kontakt"))} '

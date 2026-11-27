@@ -13,7 +13,7 @@ _Last updated: 2026-10-11 (reference source: backup before the update, restore o
   catalog entry, so the next sync does not import it again).
   The opposite direction has an explicit place instead of being silent:
   a reference you deleted **in Frigate** is never re-sent on its own. It shows up on the
-  **Frigate sync** page as your decision, *offer again* or *respect the deletion*, and
+  **Reference sync** page as your decision, *offer again* or *respect the deletion*, and
   nothing goes out until you choose. "Respect the deletion" keeps the picture in your own
   library and only stops it from going to Frigate, including in the automatic sync; it
   deletes nothing on either side.
@@ -81,7 +81,7 @@ _Last updated: 2026-10-11 (reference source: backup before the update, restore o
 - **Frigate only accepts reference uploads while its own face recognition is on.**
   With `face_recognition.enabled: false` in your Frigate config, Frigate answers every
   upload with HTTP 400 ("Face recognition is not enabled."). suslik shows that verbatim,
-  and the **Frigate sync** page reads the live state from Frigate as it loads ("Frigate
+  and the **Reference sync** page reads the live state from Frigate as it loads ("Frigate
   face recognition: on/off"). Importing *from* Frigate works either way; only the
   direction out is blocked.
 - **A picture Frigate refuses does not stop the sync.** Every image is judged on its own.

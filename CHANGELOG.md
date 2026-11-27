@@ -5,6 +5,30 @@ never pushed to GHCR; they ship bundled with the next release (each release entr
 says which steps it bundles). This file keeps the last five releases; the full record lives in the
 [GitHub releases](https://github.com/BennoBaer-dev/suslik/releases) and the git history.
 
+## Unreleased
+
+- **Navigation labels:** the second-row names now say what each page is. Renamed (old → new),
+  grouped by section: **Activity** — Passes → **Walk-throughs**, Events → **Camera events**,
+  Presence → **Presence timeline**; **Faces → People** — Faces → **Overview**, Known → **Face library**,
+  Unknown → **Unidentified visitors**, Quality → **Quality review**, Suggestions → **Faces to add**,
+  Named persons → **Body names**, Vision → **Vision checks**; **Learn** — face learning runs →
+  **Run a session**, anchors → **Review clusters**; **Live** — live watchers → **Watcher setup**,
+  live alerts → **Watcher findings**; **Configuration** — Recognition → **Recognition setup**,
+  Areas → **Property areas**, Calibration → **Camera calibration**, Notifications → **Notification channels**,
+  Recognition chain → **When each path runs**, Recognition test → **Test one pass**, Advanced → **Advanced settings**;
+  **System** — System → **Status & backups**, System stats → **Hardware & load**, GPU → **Graphics card**,
+  Frigate → **Frigate connection**, Frigate sync → **Reference sync**. Addresses are unchanged.
+  The top row is now a `nav` landmark labelled "Sections" and the second row a `nav` landmark named after
+  the current section ("Pages in …"); a "Skip to content" link reaches `<main id="inhalt">`.
+- **Navigation:** the top bar now has six sections — **Activity**, **People**, **Learn**,
+  **Live**, **Configuration**, **System** — with the pages of each section in a row beneath
+  it. The four loose buttons in the header (**Read me first**, **Calibration**, **Presence**,
+  **GPU**) are pages now: Presence is under Activity, Calibration under Configuration (Expert
+  mode), GPU under System, and Read me first is the **?** button at the right end of the bar.
+  Single-page sections (Vision, Recognition test) moved into People and Configuration. No address
+  changed, so bookmarks and deep links still work; only the grouping and the look of the bar
+  changed.
+
 ## 0.1.1.115 (2026-11-26)
 
 Test release. Person recognition stays a preview.

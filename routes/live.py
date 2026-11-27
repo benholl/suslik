@@ -700,7 +700,7 @@ def _platz_leiste(belegung, anzahl, nr):
             unten = f'<i class="lvs-punkt lvs-f-{farbe}"></i>{html.escape(_zustand_text(kd["zustand"]))}'
             titel = ("" if kd.get("in_frigate", True) else
                      f' title="{html.escape(t("live.kachel.attr_fremd"), quote=True)}"')
-        aktuell = ' aria-current="page"' if n == nr else ""
+        aktuell = ' aria-current="true"' if n == nr else ""
         knoepfe.append(f'<a class="lvs-platz{klasse}{" lvs-gewaehlt" if n == nr else ""}" href="/live?platz={n}"'
                        f'{aktuell}{titel} onclick="return livePlatzWechsel(this)"><span class="lvs-nr">{n}</span>'
                        f'<span class="lvs-tx"><b>{html.escape(name)}</b><small>{unten}</small></span></a>')

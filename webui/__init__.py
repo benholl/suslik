@@ -47,108 +47,53 @@ _STATIK_STEMPEL = _statik_stempel()
 # Schluessel; verifyd.py uebergibt an layout() dieselben nav.*-Literale).
 def _nav():
     return [
-        # OA1 (Eigentuemer 24.10.2026, Bauplan analysen/bauplan_offen_ausblenden.md):
-        # der Unterreiter "To label" (/offen) ist aus dem Menue heraus. Beim
-        # Feldtester rechnete die Seite je Aufruf rund 18 Minuten im Dienst weiter,
-        # obwohl der Proxy nach 31 s abbrach. Seit Bauplan analysen/bauplan_benennen.md,
-        # Stufe BN3 ist die Seite selbst weg: /offen und /review leiten auf /unbekannte
-        # um, die Seite „Unbekannte“ zum Benennen (Faces, in Easy und Expert); die
-        # Texte stehen in archiv/unbekannte_offen_alt/.
-        # MU1 (Bauplan analysen/bauplan_menue_unbekannte.md): „Unbekannte“ steht
-        # zusaetzlich hier als dritter Unterreiter nach Events, wo bis 0.1.1.037
-        # /offen stand; der Eintrag unter Faces bleibt. Grund: der Eigentuemer
-        # suchte die Seite auf Prod neben Events (26.10.2026 14:13:34 „Der
-        # Menuepunkt Unbekannte soll wieder unter Aktivitaet rechts neben Events
-        # stehen“, 14:14:50 „Pack es einfach an beiden jetzt hin“). Auf
-        # /unbekannte leuchtet oben Aktivitaet, der erste passende Bereich.
-        # Bauplan analysen/bauplan_today_seite.md, Stufe TY2 Punkt 2: der Reiter „Durchgaenge“ (/durchgaenge) zwischen
-        # Heute und Events traegt die Zahlen und die Liste der Durchgaenge, die bis dahin auf Heute standen.
-        (t("nav.bereich.activity"), [("/heute", t("nav.heute")),
-                                     ("/durchgaenge", t("nav.durchgaenge")),
-                                     ("/ereignisse", t("nav.ereignisse")),
-                                     ("/unbekannte", t("nav.unbekannte"))]),
-        # .220 (User 16.08., Mockup-Abnahme): der Gesichts-Bereich "eingedampft" —
-        # People + Face-Learn verschmelzen zu FACES mit Kachel-Startseite
-        # (Avatar-Leiste, gefuehrter Lern-Fluss). Easy sieht nur die Startseite,
-        # Expert behaelt alle Detail-Blaetter als Unterreiter (NUR_EXPERT_BLAETTER
-        # blendet aus, nichts wird geloescht; Erreichbarkeit fuer Easy laeuft ueber
-        # die Kachel-Knoepfe — dasselbe Muster wie bei Configuration).
-        (t("nav.bereich.faces"), [("/faces", t("nav.faces")),
-                                  ("/gesichter", t("nav.gesichter")),
-                                  ("/unbekannte", t("nav.unbekannte")),
-                                  ("/qualitaet", t("nav.qualitaet"))]),
-        # .254 (User 17.08.: "ich vermisse den Knopf fuer das Lernen oben im
-        # Menue, er gehoert da rein"): Learn kehrt als Hauptbereich zurueck —
-        # Startseite ist der NEUE gefuehrte Lernfluss (.246); Anchors/Suggestions
-        # ziehen aus Faces mit (Expert-Unterreiter). Person learn bleibt bewusst
-        # unter Person (fachliche Heimat, .220-Entscheid ungebrochen).
-        (t("nav.bereich.learn"), [("/lernlauf", t("nav.lernlauf")),
-                                  ("/lernlauf/anker", t("nav.anker")),
-                                  ("/lernen", t("nav.lernen"))]),
-        # Person als EIGENER Hauptbereich neben People (User 04.08. abend):
-        # People zeigt die GESICHTER, Person die KOERPER-Bilder je Person.
-        # Bauplan analysen/bauplan_koerperweg_neu.md, Stufe KW4 Punkt 2: die flache
-        # Seite „Body images“ (/koerperbilder); seit Stufe FN3 (Bauplan
-        # analysen/bauplan_feldnachzug_0110.md) dahinter „Named persons“ (/koerpernamen).
-        # Die alten Eintraege (/person, /person/kontrolle, /person/modell, /personlauf)
-        # sind aus dem Menue; ihre Routen und Seiten sind mit Stufe KW6 ausgebaut.
-        (t("nav.bereich.person"), [("/koerperbilder", t("nav.person")),
-                                   ("/koerpernamen", t("nav.koerpernamen"))]),
-        # Vision detect zwischen Person und Area (konzept_vision.md v2 §4): der
-        # dritte Erkennungspfad. V1 zeigt Verbindung + Test; Galerie-Wizard und
-        # Status folgen. Der Reiter steht auch AUS sichtbar da — eine Seite, die
-        # erklaert, was sie tut, ist leichter zu finden als eine, die je nach
-        # Config verschwindet (dieselbe Begruendung wie bei "Judged images").
-        (t("nav.bereich.vision"), [("/vision", t("nav.vision"))]),
-        # Live direkt neben Vision (live_reiter_bauplan.md §2.1, User woertlich).
-        # Der Reiter steht auch sichtbar da, wenn kein Waechter laeuft — dieselbe
-        # Begruendung wie bei "Vision detect": eine Seite, die erklaert, was sie
-        # tut, ist leichter zu finden als eine, die je nach Config verschwindet.
-        # .200 (Fix 6, Usersicht-Review): die Ergebnis-Seite der Waechter war nur
-        # ueber die Today-Seitenleiste erreichbar — "und wo sehe ich jetzt, was er
-        # gesehen hat?" hatte keinen Menue-Weg.
-        (t("nav.bereich.live"), [("/live", t("nav.live")),
-                                 ("/live_alerts", t("nav.live_alerts"))]),
-        # Areas war .83-.221 ein eigener Hauptbereich; .222 (User): "kein extra
-        # Punkt mehr" — das Blatt lebt als Expert-Unterreiter von Configuration,
-        # Easy erreicht es ueber die Areas-Kachel der Property-set-up-Reihe.
-        # .83-.219 stand hier "Learn" als eigener Hauptbereich; .220 loest ihn auf:
-        # Face learn/Anchors leben unter FACES, Person learn unter PERSON.
-        # .137: der Frigate-Abgleich bekam einen EIGENEN Hauptbereich (User 06.08.).
-        # .216 (User 16.08.): der Bereich heisst "Frigate" und beginnt mit einer
-        # Kachel-Startseite im /erkennung-Muster (Connection/Cameras/Sync/FR-Zustand);
-        # die Sync-Seite bleibt als Unterreiter, in der Easy-Sicht ausgeblendet
-        # (die Kachel fuehrt hin — dieselbe Mechanik wie bei Configuration).
-        (t("nav.bereich.frigate"), [("/frigate", t("nav.frigate")),
-                                    ("/sync_auswahl", t("nav.sync_auswahl"))]),
-        # .207 (User 16.08.: die Vier-Saeulen-Seite ist "die Startseite fuer die
-        # Konfiguration"): /erkennung steht VORN — der Settings-Klick oben landet
-        # direkt dort (Abschnitts-Link = kinder[0]). Die uebrigen Blaetter sind
-        # Expert-Sicht (NUR_EXPERT_BLAETTER, Easy blendet ihre Unterreiter aus).
-        # .210 (User 16.08.): der Reiter heisst "Configuration", nicht "Settings".
+        # Aktivitaet
+        (t("nav.bereich.activity"), [
+            ("/heute", t("nav.heute")),
+            ("/durchgaenge", t("nav.durchgaenge")),
+            ("/ereignisse", t("nav.ereignisse")),
+            ("/anwesenheit", t("anwesenheit.knopf")),
+        ]),
+        # Gesichter
+        (t("nav.bereich.faces"), [
+            ("/faces", t("nav.faces")),
+            ("/gesichter", t("nav.gesichter")),
+            ("/unbekannte", t("nav.unbekannte")),
+            ("/qualitaet", t("nav.qualitaet")),
+            ("/lernen", t("nav.lernen")),
+            ("/koerperbilder", t("nav.person")),
+            ("/koerpernamen", t("nav.koerpernamen")),
+            ("/vision", t("nav.vision")),
+        ]),
+        # Lernen
+        (t("nav.bereich.learn"), [
+            ("/lernlauf", t("nav.lernlauf")),
+            ("/lernlauf/anker", t("nav.anker")),
+        ]),
+        # Live
+        (t("nav.bereich.live"), [
+            ("/live", t("nav.live")),
+            ("/live_alerts", t("nav.live_alerts")),
+        ]),
+        # Konfiguration
         (t("nav.bereich.configuration"), [
             ("/erkennung", t("nav.erkennung")),
             ("/kameras", t("nav.kameras")),
+            ("/areas", t("nav.areas")),
+            ("/kalibrierung", t("kalib.knopf")),
             ("/benachrichtigungen", t("nav.benachrichtigungen")),
-            ("/areas", t("nav.areas")),   # .222: aus der Hauptnav hierher
-            # .189 (User 13.08.: "vier Menuepunkte"): die Erkennungskette
-            # als EIGENES Blatt VOR Advanced — sie ist Verhaltens-Config
-            # erster Klasse, kein versteckter Tabellen-Parameter; seit
-            # .207 Teil der Expert-Sicht (der User-Menue-Entscheid bleibt
-            # dort erhalten, Easy blendet nur aus).
             ("/kette", t("nav.kette")),
-            ("/konfiguration", t("nav.konfiguration"))]),
-        # Recognition test als EIGENER Einstieg neben System (konzept_vision.md v2 §4,
-        # User-Entscheid 08.08.): die Seite prueft einen Durchgang ueber ALLE DREI
-        # Wege (Gesicht/Koerper/Vision) und ist damit kein Vision-Detail. EINE Seite,
-        # zwei Einstiege — der Vision-Reiter verlinkt dieselbe Adresse.
-        (t("nav.bereich.erkennungstest"), [("/erkennungstest", t("nav.erkennungstest"))]),
-        # .341: der System-Bereich bekommt einen zweiten Unterreiter — die
-        # Systemstatistik (Bauplan analysen/bauplan_systemstatistik.md). Damit
-        # erscheint hier ueberhaupt zum ersten Mal eine zweite Ebene: layout()
-        # zeigt sie erst ab zwei Kindern.
-        (t("nav.bereich.system"), [("/system", t("nav.system")),
-                                   ("/systemstat", t("nav.systemstat"))]),
+            ("/erkennungstest", t("nav.erkennungstest")),
+            ("/konfiguration", t("nav.konfiguration")),
+        ]),
+        # System
+        (t("nav.bereich.system"), [
+            ("/system", t("nav.system")),
+            ("/systemstat", t("nav.systemstat")),
+            ("/gpu", t("gpu.knopf")),
+            ("/frigate", t("nav.frigate")),
+            ("/sync_auswahl", t("nav.sync_auswahl")),
+        ]),
     ]
 
 
@@ -162,47 +107,15 @@ def nav_pfade():
 
 # Blattseiten ohne eigenen Reiter ihrem Abschnitt zuordnen, damit oben trotzdem der richtige
 # Bereich leuchtet (heute leuchtet auf /setup gar nichts).
-BLATT = {"/setup": "/kameras", "/aehnliche": "/gesichter", "/event": "/heute", "/auftritte": "/heute",
-         # /hilfe: eigener aktiv-Pfad seit Stufe 1 (Widerleger P1 — die englischen
-         # Anleitungen duerfen den Hinweis der uebersetzten /erkennung nicht erben);
-         # Bereichs-Leuchte bleibt Configuration wie zuvor.
-         "/hilfe": "/erkennung",
-         # /kalibrierung gehoert seit dem Zentral-Umbau (31.08.) zu KEINEM
-         # Bereich mehr: die Kamera-Kalibrierung hat einen eigenen Knopf in der
-         # Kopfleiste (neben "Read me first"), sie ist kein Blatt des
-         # Lernlaufs. None = kein Bereich (dieselbe Semantik wie /readme):
-         # oben leuchtet nichts, es gibt keine fremde Unterreiterzeile.
-         # Vorher stand hier "/lernlauf" — damals war die Seite der
-         # Kalibrier-Knopf der Smart-naming-Kachel. (Der zweite Eintrag dieser
-         # Art, /lernlauf/belichtung, ist am 31.08. mit der
-         # Belichtungs-Kalibrierseite ausgebaut worden.)
-         "/kalibrierung": None,
-         # .409: /anwesenheit — eigener Leisten-Knopf neben der Kalibrierung
-         # (User 02.09.: "im Menue links auf der Hoehe oder daneben, wo die
-         # Kalibrierung ist"), kein Blatt eines Reiters. None wie
-         # /kalibrierung — ohne den Eintrag leuchtete der Knopf nie und der
-         # Rueckfall behauptete Activity als aktiv (Falle unten, 381-382).
-         "/anwesenheit": None,
-         # .374: /readme gehoert zu KEINEM Bereich — der Knopf steht in jeder
-         # Kopfleiste, die Seite ist kein Blatt eines Reiters. None heisst
-         # deshalb "kein Bereich": nichts leuchtet oben, keine Unterreiterzeile.
-         # Ohne den Eintrag griff der Rueckfall nav_liste[0][0] und markierte
-         # Activity als aktiv, samt dessen Unterreitern (Today/Events/To label)
-         # — eine Zeile, in der kein einziger Reiter aktiv war, und 34 px mehr
-         # klebende Kopfleiste ueber den Sprungzielen.
-         # P5 (.503, User 04.09.: "einen GPU-Knopf, rechts neben Praesenz oder
-         # links neben Easy"): eigener Leisten-Knopf, kein Blatt eines Reiters.
-         # None wie /anwesenheit — ohne den Eintrag leuchtete der Knopf nie und
-         # der Rueckfall behauptete Activity als aktiv (Falle unten, 381-382).
-         "/gpu": None,
-         "/readme": None}
+BLATT = {"/readme": None, "/setup": "/kameras", "/aehnliche": "/gesichter", "/event": "/heute", "/auftritte": "/heute",
+         "/hilfe": "/erkennung"}
 
 # .207 (User 16.08.: "wenn der Schalter auf Basis ist, erscheint dieses Bild und
 # nicht mehr die anderen zusaetzlich"): Blaetter, deren UNTERREITER nur im
-# Expert-Modus sichtbar sind (CSS-Klasse nur-expert, body.easy versteckt).
+# Expert-Modus sichtbar sind (CSS-Klasse nur-expert, html.easy versteckt).
 # Nur ausgeblendet, nie gesperrt — die Seiten bleiben per URL erreichbar.
 NUR_EXPERT_BLAETTER = {"/kameras", "/benachrichtigungen", "/kette", "/konfiguration",
-                       "/sync_auswahl", "/areas",
+                       "/sync_auswahl", "/areas", "/kalibrierung",
                        # .220: die Faces-Detail-Blaetter — Easy fuehrt ueber
                        # die Kachel-Knoepfe der Startseite dorthin. .254:
                        # /lernlauf ist RAUS aus der Menge (eigener Learn-
@@ -347,29 +260,30 @@ def layout(titel, aktiv, inhalt, banner=None, refresh=None, banner_aktion=None,
     # Pfad, keine Seite muss etwas ueber die Gruppierung wissen.
     nav_liste = _nav()
     a = BLATT.get(aktiv, aktiv)
-    # a is None: Seite ohne Bereich (BLATT-Eintrag "/readme") — dann leuchtet
-    # oben nichts und die zweite Ebene bleibt weg, statt dass der Rueckfall
-    # den ERSTEN Bereich behauptet.
-    abschnitt = None if a is None else next(
-        (ab for ab, kinder in nav_liste
-         if any(p == a for p, _ in kinder)), nav_liste[0][0])
+    # Kein Treffer (a=None oder Pfad in keinem Bereich): oben leuchtet nichts und
+    # die zweite Ebene bleibt weg — der fruehere Rueckfall nav_liste[0][0] behauptete
+    # sonst Activity als aktiv, samt dessen Unterreitern (Falle zu /readme in BLATT).
+    abschnitt = next((ab for ab, kinder in nav_liste
+                      if any(p == a for p, _ in kinder)), None)
+    _sec_aktiv = ' class=aktiv'
     nav = "".join(
-        f'<a href="{kinder[0][0]}"{" class=aktiv" if ab == abschnitt else ""}>{html.escape(ab)}</a>'
+        f'<a href="{kinder[0][0]}"{_sec_aktiv if ab == abschnitt else ""}>{html.escape(ab)}</a>'
         for ab, kinder in nav_liste)
     kinder = next((k for ab, k in nav_liste if ab == abschnitt), [])
-    # Zweite Ebene nur zeigen, wenn es dort mehr als eine Seite gibt (System hat nur sich selbst).
+    # Zweite Ebene nur zeigen, wenn der Bereich mehr als eine Seite hat.
     # Unterreiter nur markieren, wenn die Seite WIRKLICH die des Reiters ist (Plan-QS M7):
-    # BLATT bildet /setup auf /kameras ab, damit oben "Settings" leuchtet — aber der
+    # BLATT bildet /setup auf /kameras ab, damit oben "Configuration" leuchtet — aber der
     # Unterreiter "Cameras" leuchtete dadurch MIT, obwohl man gar nicht auf /kameras ist.
     # Der Abschnitt kommt aus dem gemappten Pfad (a), der Unterreiter aus dem echten (aktiv).
     def _u_klasse(p):
         k = (["aktiv"] if p == aktiv else []) \
             + (["nur-expert"] if p in NUR_EXPERT_BLAETTER else [])
-        return f' class="{" ".join(k)}"' if k else ""
+        aria = ' aria-current="page"' if p == aktiv else ""
+        return f' class="{" ".join(k)}"{aria}' if k else ""
     unter = ("" if len(kinder) < 2 else
-             '<div class="subnav"><div class="inner">' + "".join(
+             '<nav class="subnav" aria-label="' + html.escape(t("nav.landmark.seiten", bereich=abschnitt)) + '"><div class="inner">' + "".join(
                  f'<a href="{p}"{_u_klasse(p)}>{html.escape(n)}</a>'
-                 for p, n in kinder) + "</div></div>")
+                 for p, n in kinder) + "</div></nav>")
     ver = os.environ.get("SUSLIK_VERSION", "")   # feste Image-Version (leer im rohen dev-Lauf)
     # Issue #24 (Tokn59, 18.08.): die VOLLE installierte Variante zeigen
     # ('0.1.0.X-gpu') — SUSLIK_VARIANT steckt seit den Varianten-Builds im
@@ -420,45 +334,6 @@ def layout(titel, aktiv, inhalt, banner=None, refresh=None, banner_aktion=None,
               'h.hidden=false;h.querySelector(".hinweis-x").onclick=function(){'
               'try{localStorage.setItem(k,"1")}catch(e){}h.remove();};})();</script>')
     r = f'<meta http-equiv="refresh" content="{int(refresh)}">' if refresh else ""
-    # .371 (User 29.08.: "muss einmal als Knopf deutlich sichtbar sein, am besten
-    # ueberall"): deshalb hier im Layout und nicht auf einer einzelnen Seite.
-    # Neben der Navigation, mit eigener Farbe — wer zum ersten Mal vor der
-    # Oberflaeche sitzt, soll ihn finden, ohne zu suchen.
-    rmk = (f'<a class="rmk" href="/readme" title="{html.escape(t("readme.titel"))}">'
-           f'{html.escape(t("readme.knopf"))}</a>')
-    # Kamera-Kalibrierung als EIGENER Knopf (User 31.08.: "eigener Knopf oben
-    # in der Hauptleiste — vor dem Easy/Expert-Umschalter, neben Read me
-    # first"). Hier im Layout und nicht in _nav(), weil die Seite kein Reiter
-    # mit Unterreitern ist, sondern EIN Einstieg: sie fuehrt auf die
-    # Kamera-Uebersicht, von dort je Kamera weiter. Eigene Klasse neben .rmk,
-    # damit beide Knoepfe gleich aussehen und nebeneinander stehen; der
-    # aktiv-Zustand kommt aus dem BLATT-Eintrag (kein Bereich).
-    # aktiv (nicht a): BLATT bildet /kalibrierung bewusst auf None ab —
-    # gegen den gemappten Wert verglichen leuchtete der Knopf nie.
-    # Nur im Expert-Modus (User 21.10.2026): die Klasse nur-expert blendet ihn
-    # in Easy aus, die Seite bleibt per Adresse und ueber die Live-Seite erreichbar.
-    kalk = (f'<a class="rmk kalk nur-expert{" an" if aktiv == "/kalibrierung" else ""}" '
-            f'href="/kalibrierung" '
-            f'title="{html.escape(t("kalib.knopf_tip"))}">'
-            f'{html.escape(t("kalib.knopf"))}</a>')
-    # .409 Anwesenheit (User 02.09.: "im Menue links auf der Hoehe oder
-    # daneben, wo die Kalibrierung ist, ein neuer Button Anwesenheit"):
-    # dieselbe Bauform wie der Kalibrier-Knopf, direkt daneben; aktiv ueber
-    # den BLATT-Eintrag (None) und den ECHTEN Pfad (aktiv, nicht a) — s. die
-    # dokumentierte Falle beim kalk-Knopf.
-    anwk = (f'<a class="rmk anwk{" an" if aktiv == "/anwesenheit" else ""}" '
-            f'href="/anwesenheit" '
-            f'title="{html.escape(t("anwesenheit.knopf_tip"))}">'
-            f'{html.escape(t("anwesenheit.knopf"))}</a>')
-    # P5 GPU-Knopf (User 04.09.): dieselbe Bauform wie Kalibrierung und
-    # Anwesenheit, rechts daneben. Er fuehrt auf die einzige Seite, die sagt, was
-    # die Karte traegt — vorher war `analyse_plaetze` ein nackter Config-Wert und
-    # der Nutzer konnte weder sehen, wie viel Speicher er hat, noch was ein
-    # Waechter oder ein Analyse-Platz davon kostet.
-    gpuk = (f'<a class="rmk gpuk{" an" if aktiv == "/gpu" else ""}" '
-            f'href="/gpu" '
-            f'title="{html.escape(t("gpu.knopf_tip"))}">'
-            f'{html.escape(t("gpu.knopf"))}</a>')
     # Und das Aufgehen von selbst: die Seite fragt EINMAL nach, ob die Marke
     # fehlt (also seit dem letzten Dienststart noch niemand geschlossen hat),
     # und holt sich den Inhalt dann nach. Entkoppelt, damit es auf JEDER Seite
@@ -544,26 +419,27 @@ def layout(titel, aktiv, inhalt, banner=None, refresh=None, banner_aktion=None,
               f'title="{html.escape(t("ui.modus.tooltip"))}">'
               f'<button type="button" data-m="easy">{html.escape(t("ui.modus.easy"))}</button>'
               f'<button type="button" data-m="expert">{html.escape(t("ui.modus.expert"))}</button></span>'
-              f'<span class="live"><span class="d"></span>{html.escape(t("ui.live.chip"))}</span>'
-              # .341b (User 25.08.): Direktweg zur Auslastung aus JEDER Seite, in der
-              # Kopfleiste neben Live. Der Unterreiter unter System bleibt bestehen und
-              # heisst dort ausgeschrieben — hier oben zaehlt die Kuerze.
-              f'<a class="toggle" href="/systemstat" '
-              f'title="{html.escape(t("ui.last.tooltip"))}">'
-              f'<span class="tg-txt">{html.escape(t("ui.last.knopf"))}</span></a>'
+              f'<a class="live" href="/live" title="{html.escape(t("ui.live.chip"))}">'
+              f'<span class="d"></span>{html.escape(t("ui.live.chip"))}</a>'
               + _sprach_schalter() +
               '<button class="toggle" id="theme-toggle" '
               f'title="{html.escape(t("ui.theme.tooltip"))}" '
               f'aria-label="{html.escape(t("ui.theme.aria"))}">'
               '<span class="tg-ico" aria-hidden="true">◐</span>'
-              f'<span class="tg-txt">{html.escape(t("ui.theme.knopf"))}</span></button></span>')
+              f'<span class="tg-txt">{html.escape(t("ui.theme.knopf"))}</span></button>'
+              f'<a class="toggle{" an" if aktiv == "/readme" else ""}" href="/readme" '
+              f'title="{html.escape(t("readme.titel"))}" '
+              f'aria-label="{html.escape(t("readme.titel"))}">'
+              '<span class="tg-ico" aria-hidden="true">?</span></a></span>')
     # Themenwahl (25.07.): OHNE eigene Wahl folgt die Oberflaeche dem Betriebssystem. Vorher war
     # Dunkel fest voreingestellt — User: "es ist ja alles sehr dunkel und faende ich nicht so
     # willkommen". Wer den Umschalter benutzt, ueberstimmt das System dauerhaft; das OS ueberschreibt
     # eine ausdrueckliche Wahl NIE. Inline und vor dem Stylesheet, damit nichts kurz aufblitzt.
     themejs = ('<script>try{var t=localStorage.getItem("vd-theme");'
                'if(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)t="light";'
-               'if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>')
+               'if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}'
+               "try{if(localStorage.getItem('vd-modus')==='easy')document.documentElement.classList.add('easy');}catch(e){}"
+               '</script>')
     # Sprach-Stufe 1 (B3): window.T traegt die js.*-Schluessel der aktiven
     # Sprache — json.dumps loest das Escaping; "</" und "<!--" werden
     # zusaetzlich gebrochen (script-Parser-Zustaende). EHRLICH (Widerleger
@@ -581,16 +457,18 @@ def layout(titel, aktiv, inhalt, banner=None, refresh=None, banner_aktion=None,
     return (f'<!doctype html><html lang="{_sp.aktive()}"><meta charset=utf-8>' + r +
             '<meta name="viewport" content="width=device-width, initial-scale=1">'
             f"<title>{html.escape(titel)} — suslik{(' ' + ver) if ver else ''}</title>"
+            + themejs +
             f'<link rel="stylesheet" href="/static/style.css?v={_STATIK_STEMPEL}">'
-            + themejs + tjs +
+            + tjs +
             f'<script src="/static/app.js?v={_STATIK_STEMPEL}" defer></script>'
             # Beide Leisten in EINEN klebenden Block (Fund der Nachpruefung 25.07.): einzeln
             # klebend brauchte die zweite Ebene einen Festwert fuer die Hoehe der ersten, und der
             # wurde falsch, sobald die erste umbrach — s. .kopf in style.css.
-            f'<div class="kopf"><nav><div class="inner"><span class="marke">{mark}suslik'
-            f'{f" <small>{html.escape(ver)}</small>" if ver else ""}{upd}</span>{lage_rot}{nav}{rmk}{kalk}{anwk}{gpuk}{rechts}</div></nav>'
+            f'<a class="skip" href="#inhalt">{html.escape(t("ui.skip"))}</a>'
+            f'<div class="kopf"><nav aria-label="{html.escape(t("nav.landmark.sektionen"))}"><div class="inner"><span class="marke">{mark}suslik'
+            f'{f" <small>{html.escape(ver)}</small>" if ver else ""}{upd}</span>{lage_rot}{nav}{rechts}</div></nav>'
             f"{unter}</div>"
-            f"<main>{b}{hw}{inhalt}</main>"
+            f'<main id="inhalt" tabindex="-1">{b}{hw}{inhalt}</main>'
             f"<footer>{_fuss()}</footer>{rmjs}</html>")
 
 

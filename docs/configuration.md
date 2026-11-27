@@ -26,12 +26,12 @@ restore* below) to restore all settings and skip the wizard entirely. Otherwise,
    variant are offered). See [hardware-acceleration.md](hardware-acceleration.md).
 4. **Import references** — optionally import your existing Frigate face references into suslik's
    master library (with live progress). You can run the same import later without re-running the
-   wizard: **People → Known → Import / resync from Frigate**, or the *only in Frigate* section
-   of the **Frigate sync** page. The System page only shows the sync balance and links there.
+   wizard: **People → Face library → Import / resync from Frigate**, or the *only in Frigate* section
+   of the **Reference sync** page. The Status & backups page only shows the sync balance and links there.
 5. **Write back to Frigate?** — decide whether suslik may correct Frigate's `sub_label` and send
    face references back (parallel operation) or stay read-only. Pre-filled with your current
    setting; read-only is the safe default. Saying yes is a precondition, not the transfer
-   itself: references go over on the **Frigate sync** page, where you pick the images (see
+   itself: references go over on the **Reference sync** page, where you pick the images (see
    [usage.md](usage.md)); `frigate_sync` additionally mirrors new references automatically.
    See *Read-back vs. write-back safety* below.
 
@@ -65,7 +65,7 @@ the update to the first version with the reference source, also save `clips/refc
 
 Two settings belong to the reference source: `profil_faktor` (default 2.2, must be above 1.5) sets the
 side of a stored profile picture as this factor times the longer side of the face box, and
-`aufbewahrung_tage` (default 14, whole days from 1, on the **Advanced** settings page) is how long everything
+`aufbewahrung_tage` (default 14, whole days from 1, on the **Advanced settings** page) is how long everything
 tied to events is kept: old event folders, the monthly archive files of the event record
 (`state/archiv/deckung_YYYY-MM.jsonl`), the pieces of the unknown queue and the log of names written to Frigate
 (`state/sublabel_writes.jsonl`). The period is a fixed number of days counted by suslik itself; it does not follow
@@ -134,7 +134,7 @@ These are the settings most people touch (all set via the wizard/UI; names shown
   restart it starts from the beginning.
 - **`poll_interval`** — seconds between two queries to Frigate for new events, in poll mode only
   (`trigger: poll`); with MQTT it has no effect. Default 10, allowed 5 to 300. A shorter interval
-  picks up finished events sooner and asks Frigate more often. It is on the **Advanced** settings
+  picks up finished events sooner and asks Frigate more often. It is on the **Advanced settings**
   page (`/konfiguration`, in the menu in Expert mode) and takes effect without a restart: the next
   poll waits the new interval. Up to version 0.1.1.034 the default was 20. On the first start of
   the version that brought this change, suslik moved the value once from 20 to 10 if it was still
@@ -145,7 +145,7 @@ These are the settings most people touch (all set via the wizard/UI; names shown
   the next start moves the old default once more.
 - **`clip_aufnahme_deckel_s`** — the longest time, in seconds from the moment an event is queued,
   that suslik waits until Frigate has recorded the event up to its end. Default 20, allowed 5 to
-  120; on the **Advanced** settings page, takes effect without a restart. This is an upper limit,
+  120; on the **Advanced settings** page, takes effect without a restart. This is an upper limit,
   not a fixed delay. Frigate builds a clip only from the recording segments it has already
   written, so a clip fetched too early can end before the event does. Before every clip fetch
   suslik therefore asks Frigate whether the recording reaches the end of the event
@@ -200,7 +200,7 @@ These are the settings most people touch (all set via the wizard/UI; names shown
 - **`frigate_sync`** — automatic mirroring of your reference library to Frigate (parallel
   operation), **off by default**. With `frigate_sync: true` *and* `frigate_read_only: false`,
   suslik uploads new active reference images by itself after each enrollment and after a sync
-  run. It respects what you decided on the **Frigate sync** page: images you deselected are
+  run. It respects what you decided on the **Reference sync** page: images you deselected are
   skipped, and images Frigate genuinely rejected are not retried until you tick them again. A
   round is skipped while a manual sync is running, since only one sync runs at a time. Selective,
   manual transfers on the sync page work regardless of this setting.
@@ -215,7 +215,7 @@ These are the settings most people touch (all set via the wizard/UI; names shown
 - **Recognition threshold** — the time-window criterion (how many consistent frames within the
   window count as "recognized"). The defaults are calibrated; change only if you know why.
   The same similarity threshold also drives the live watchers' preliminary name stage.
-- **Recognition chain** — its own Settings page: the order face → person → vision with a
+- **When each path runs** — its own Settings page: the order face → person → vision with a
   plain-language condition per step (always / only when the face path could not confirm
   everyone / off). The vision step is parked and does not run (see
   [person-recognition.md](person-recognition.md)).
@@ -230,11 +230,11 @@ These are the settings most people touch (all set via the wizard/UI; names shown
   **`koerper_meldet_pushover`**, **`koerper_meldet_telegram`** and **`koerper_meldet_ha`** (MQTT topic
   `koerper_erkannt`), each only with its channel set up, once per walk-through and person. A fifth switch,
   **`koerper_meldet_anwesenheit`** (off by default), sends nothing outside (unlike `anwesenheit_push`): it
-  writes presence marks for the events the body name counts for, shown on the **Presence** page and in the
+  writes presence marks for the events the body name counts for, shown on the **Presence timeline** page and in the
   hour bar on **Today** as their own state *via person recognition*; red stays confirmed by face or live
   watcher. They are on the
-  **Recognition** page (body card) and also on the **Advanced** settings page. The
-  ten settings of the path, all on the **Advanced** settings page (`koerper_lauf` and `koerper_sichtpruefung`
+  **Recognition setup** page (body card) and also on the **Advanced settings** page. The
+  ten settings of the path, all on the **Advanced settings** page (`koerper_lauf` and `koerper_sichtpruefung`
   also on the body card of the **Recognition** page); none of the defaults is measured on more than one system:
 
   | Key | Default | Allowed | What it does |
@@ -282,7 +282,7 @@ These are the settings most people touch (all set via the wizard/UI; names shown
   CRITICAL line of all processes is copied there as well, so the file is complete on its own; the
   confirmation lines themselves stay out of `suslik.log` (they do show in `docker logs`).
   `pruef_takt_s` is the interval in seconds (default 30, allowed 10–3600). Switch it on the
-  **Advanced** settings page, or through the API with `POST /konfig` and a JSON body such as
+  **Advanced settings** page, or through the API with `POST /konfig` and a JSON body such as
   `{"pruef_log": true}`: it takes effect at once, without a restart, and stays on after a restart
   until you switch it off. `pruef.log` rotates like `suslik.log` and is part of
   `/log/suslik-logs.tar.gz` and of the support area `/support/logs`
@@ -327,7 +327,7 @@ Two things are worth knowing before you switch it off. Frigate itself only accep
 uploads while **its own** face recognition is enabled (`face_recognition.enabled: true` in your
 Frigate config); otherwise every upload comes back as HTTP 400 *"Face recognition is not
 enabled."* suslik reports exactly that and shows Frigate's current on/off state live on the
-**Frigate sync** page. And read-only never blocks reading: the class-by-class comparison, the
+**Reference sync** page. And read-only never blocks reading: the class-by-class comparison, the
 pre-check and importing *from* Frigate all keep working, only the transfer button is disabled.
 
 ## Known limitations

@@ -288,8 +288,8 @@ function testKanal(kanal, btn) {
 }
 
 function frigateWrite(readonly) {
-  var txt = readonly ? TT('js.frigate.ro_frage', 'Switch to READ-ONLY? suslik will stop writing to Frigate.')
-                     : TT('js.frigate.rw_frage', 'Enable WRITING to Frigate (sub_labels + reference sync)?');
+  var txt = readonly ? TT('js.frigate.ro_frage', 'Stop writing (read-only)? suslik will no longer write recognized names to Frigate.')
+                     : TT('js.frigate.rw_frage', 'Enable writing? suslik will write recognized names to Frigate (sub_labels + reference sync).');
   if (!confirm(txt)) return;
   var st = document.getElementById('fw-status');
   st.textContent = TT('js.status.speichern', 'saving …');
@@ -2114,7 +2114,7 @@ function liveKameraWechsel(sel) {
   var w = document.getElementById('ui-modus');
   if (!w) return;
   function setzen(m) {
-    document.body.classList.toggle('easy', m === 'easy');
+    document.documentElement.classList.toggle('easy', m === 'easy');
     var bs = w.querySelectorAll('button');
     for (var i = 0; i < bs.length; i++) {
       bs[i].classList.toggle('an', bs[i].getAttribute('data-m') === m);

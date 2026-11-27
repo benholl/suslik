@@ -15,7 +15,7 @@ There are two ways in, and they complement each other:
 
 ## What a learning run does
 
-Open **Known people → Learn people**. The wizard walks through five phases, and the page
+Open **People → Run a session**. The wizard walks through five phases, and the page
 keeps updating while it works — you can close the browser, a run survives restarts and
 resumes where it stopped.
 
@@ -66,8 +66,8 @@ They are being built.
 
 ## Settings worth knowing
 
-These live under **Settings → Advanced** (the Settings menu holds Cameras,
-Notifications, Recognition chain and Advanced). The defaults are deliberate starting
+These live under **Configuration → Advanced settings** (the Configuration menu holds Recognition setup,
+Cameras, Property areas, Camera calibration, Notification channels, When each path runs, Test one pass and Advanced settings). The defaults are deliberate starting
 values; if a run does not feel right, this is where you tune it, one value at a time.
 
 | Key | What it does |
